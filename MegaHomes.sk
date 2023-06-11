@@ -1,0 +1,29 @@
+command /sethome <string>:
+    description: Sets your home
+    permission: set.home
+    trigger:
+        add arg-1 to {homes::%uuid of player%::*}
+        message "&a[&cMegaHomes&a] &6Set your home <green>%arg-1%<reset> to <grey>%location of player%<reset>"
+
+command /delhome <string>:
+    description: Deletes your home
+    permission: delete.home
+    trigger:
+        clear {homes::%uuid of player%::%arg-1%}
+        message "&a[&cMegaHomes&a] &6Deleted your home <green>%arg-1%<reset>"
+
+command /home <string>:
+    description: Teleports yourself to your home
+    permission: teleport.home
+    trigger:
+        if {homes::%uuid of player%::%arg-1%} is not set:
+            message "&a[&cMegaHomes&a] &6You have not set your home <green>%arg-1%<reset> &6yet!"
+        else:
+            teleport player to {homes::%uuid of player%::%arg-1%}
+
+command /homes:
+	permission: list.home
+	trigger:
+		loop {homes::%uuid of player%::*}:
+			send "%loop-index% %loop-value%"
+
