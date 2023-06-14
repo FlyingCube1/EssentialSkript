@@ -1,0 +1,25 @@
+variables:
+	{toggle} = 0
+
+command /smelt <text>:
+	permission: auto.smelt
+	trigger:
+		if arg-1 contains "on":
+			send "&6[&cAutoSmelt&6] &bYou have toggled Auto Smelt on"
+			set {toggle} to 1
+			
+		if arg-1 contains "off":
+			send "&6[&cAutoSmelt&6] &bYou have toggled Auto Smelt off"
+			set {toggle} to 0
+		
+on break of iron ore:
+	if {toggle} contains 1:
+		cancel event
+		set block to air
+		drop iron ingot
+
+on break of gold ore:
+	if {toggle} contains 1:
+		cancel event
+		set block to air
+		drop gold ingot
